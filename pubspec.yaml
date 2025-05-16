@@ -59,8 +59,9 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/homescreen_one.png
-    - assets/images/homescreen_two.png
+    - assets/images/
+  #this means you are calling everything in the image folder 
+  # you can not add all the images in a big project 
  
 
   # An image asset can refer to one or more resolution-specific "variants", see

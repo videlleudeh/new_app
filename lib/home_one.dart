@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:new_app/images.dart';
+import 'package:new_app/screens.dart';
 
 class HomeOne extends StatefulWidget {
   const HomeOne({super.key});
@@ -19,146 +21,48 @@ final ButtonStyle buttonForm = ElevatedButton.styleFrom(
 
 class _HomeOneState extends State<HomeOne> {
   PageController pageController = PageController(initialPage: 0);
-  int pageView = 0;
+  int currentPage = 0;
 
   @override
   Widget build(BuildContext context) {
-    return PageView(
-      controller: pageController,
-      onPageChanged: (x) {
-        setState(() {
-          pageView = x;
-        });
+    final List<Widget> pages = [
+      ScreenContent(
+        AssetsImages.homeImageOne,
+        "Fast sell your property in just one click",
+        "Unlock the potential of effortless selling or renting your properties with a simple steps.",
+      ),
 
-        // ignore: avoid_print
-        print(pageView);
-      },
+      ScreenContent(
+        AssetsImages.homeImageTwo,
+        "Discover the best houses at a reasonable cost.",
+        "We offer the perfect dream home that is within reach without compromising on quality or comfort.",
+      ),
+    ];
+
+    return Stack(
       children: [
-        Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/images/homescreen_one.png'),
-              fit: BoxFit.cover,
-              colorFilter: ColorFilter.mode(
-                Color.fromRGBO(123, 97, 255, 0.2),
-                BlendMode.color,
-              ),
-            ),
-          ),
-
-          child: Container(
-            margin: EdgeInsets.only(left: 8, top: 499, right: 8, bottom: 0),
-            padding: EdgeInsets.all(8),
-            width: double.infinity,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Fast sell your property in just one click",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 24,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-
-                SizedBox(height: 10),
-
-                Text(
-                  "Unlock the potential of effortless selling or renting your properties with a simple steps.",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Color.fromRGBO(210, 210, 210, 1),
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-
-                SizedBox(height: 25),
-
-                ElevatedButton(
-                  onPressed: () {
-                    pageController.animateToPage(
-                      1,
-                      duration: Duration(milliseconds: 300),
-                      curve: Curves.bounceInOut,
-                    );
-                  },
-                  style: buttonForm,
-                  child: Text("Next"),
-                ),
-              ],
-            ),
-          ),
+        PageView(
+          controller: pageController,
+          onPageChanged: (x) {
+            setState(() {
+              currentPage = x;
+            });
+          },
+          children: pages,
         ),
-
         Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/images/homescreen_two.png'),
-              fit: BoxFit.cover,
-              colorFilter: ColorFilter.mode(
-                Color.fromRGBO(123, 97, 255, 0.2),
-                BlendMode.color,
-              ),
-            ),
-          ),
-
-          child: Container(
-            margin: EdgeInsets.only(left: 8, top: 499, right: 8, bottom: 0),
-            padding: EdgeInsets.all(8),
-            width: double.infinity,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Discover the best houses at a reasonable cost.",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 24,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-
-                SizedBox(height: 10),
-
-                Text(
-                  "We offer the perfect dream home that is within reach without compromising on quality or comfort.",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Color.fromRGBO(210, 210, 210, 1),
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-
-                SizedBox(height: 25),
-
-                ElevatedButton(
-                  onPressed: () {},
-                  style: buttonForm,
-                  child: Text("Sign Up"),
-                ),
-
-                SizedBox(height: 20),
-
-                Row(
-                  children: [
-                    Text(
-                      "Already have an account?",
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Color.fromRGBO(210, 210, 210, 1),
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    TextButton(onPressed: () {}, child: Text("Sign In")),
-                  ],
-                ),
-              ],
-            ),
+          margin: EdgeInsets.only(bottom: 70, left: 8, right: 8),
+          alignment: Alignment.bottomCenter,
+          child: ElevatedButton(
+            onPressed: () {
+              pageController.animateToPage(
+                1,
+                duration: Duration(milliseconds: 300),
+                curve: Curves.bounceInOut,
+              );
+            },
+            style: buttonForm,
+            child: Text(currentPage != pages.length - 1 ? "Next" : "SignUp"),
           ),
         ),
       ],
